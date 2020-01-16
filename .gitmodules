@@ -1,0 +1,6 @@
+[submodule "SimpleRTOS"]
+	path = SimpleRTOS
+	url = https://github.com/DylanTomberlin/SimpleRTOS
+[submodule "HindsightCAN"]
+	path = HindsightCAN
+	url = https://github.com/huskyroboticsteam/HindsightCAN.git
