@@ -1,4 +1,3 @@
-
 /* File: CANinterpretter.c
  * Repo: HuskyRoboticsTemplate
  * Authors: Dylan Tomberlin
@@ -8,6 +7,12 @@
 
 #include "CANinterpretter.h"
 #include "CANCommon.h"
+#include "TasksCommonMode.h"
+#include "SimpleRTOS/Scheduler.h"
+
+//TODO: This keeps the same copy of TaskEStop, right? So &TaskEStop will point to the same
+//      struct as in TasksCommonMode.c?
+extern Task TaskEStop;
 
 uint8_t CANInterpretCB(void *CANInterpretDataPtr)
 {
@@ -28,8 +33,15 @@ uint8_t CANInterpretCB(void *CANInterpretDataPtr)
         switch (packetID)
         {
         case ID_ESTOP:
-            /* code */
             //Schedule EStop Task, highest priority
+            DataEStop *DataEStopPtr = (DataEStop*) TaskEStop.dataPtr;
+            DataEStopPtr->errorCode = GetEmergencyStopErrorCode(receivedPacket);
+            DataEStopPtr->senderGroup = packetDeviceGroup;
+            DataEStopPtr->senderSerial = packetDeviceSerialNumber;
+            
+            //We are scheduling this directly, since it is so high priority, but most everything else
+            //can just be queued.
+            schedulerScheduleTask(&TaskEStop);
             break;
         case ID_HEARTBEAT:
             //schedule heartbeat

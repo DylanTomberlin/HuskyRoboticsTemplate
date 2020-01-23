@@ -12,6 +12,7 @@
 
 //Task for retrieving CAN packets after interrupt
 //This data may be chip dependent because of how CAN packet info is accessed
+#define CAN_RECEIVE_DATA uint8_t placeholder; //Remove this, just until defined by the port file to avoid errors
 typedef struct
 {
     CAN_RECEIVE_DATA
