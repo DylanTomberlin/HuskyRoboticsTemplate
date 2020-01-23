@@ -89,5 +89,12 @@ uint8_t CB_TelemetryReport(void *DataTelemetryReportPtr);
 
 //Task Priorities
 //Todo, should probably be defined in a single file to avoid collisions
-#define TASK_PRIO_ESTOP     1
-#define TASK_PRIO_xxx       2
+#define TASK_PRIO_ESTOP                  1
+#define TASK_PRIO_HEARTBEAT             10
+#define TASK_PRIO_FAILURE_REPORT        20
+#define TASK_PRIO_OVERRIDE_PROTECTION   30
+#define TASK_PRIO_RGB_COLOR             40
+#define TASK_PRIO_CHIP_TYPE             50
+#define TASK_PRIO_TELEM_TIMING          60
+#define TASK_PRIO_TELEM_PULL            70
+#define TASK_PRIO_TELEM_REPORT          80
